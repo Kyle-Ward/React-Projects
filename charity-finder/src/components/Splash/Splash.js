@@ -8,7 +8,7 @@ function Splash() {
     <div className="splash">
       <img src={field} alt="field" className="image" />
       <div className="splashText">
-        This app is here to help you find charities that you want to support.
+        This app is here to help you find charities to support.
         <br />
         Simply enter some search criteria below to begin.
         <Search />
