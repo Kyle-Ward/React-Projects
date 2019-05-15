@@ -1,4 +1,4 @@
-import React from "react";
+import React  from "react";
 import Header from "../components/Header/Header";
 import Splash from "../components/Splash/Splash";
 import Search from "../components/Search/Search";

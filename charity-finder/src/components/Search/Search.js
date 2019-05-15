@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import "./Search.css";
 
 function Search() {
@@ -10,7 +10,7 @@ function Search() {
         <input className="submit" type="submit" value="Find a charity" />
       </form>
     </div>
-  )
+  );
 }
 
 export default Search;
