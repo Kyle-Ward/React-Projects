@@ -4,11 +4,29 @@
   font-size: 20px;
   text-align: center;
   margin-top: 30px;
+  border-style: none;
 }
 
 .submit {
+  margin-top: 30px;
   width: 15%;
-  height: 30px;
-  font-size: 15px;
+  height: 40px;
+  font-size: 20px;
   font-weight: 700;
+  border-style: none;
+  border-radius: 5px;
+  background: rgb(219, 178, 102)
+}
+
+.submit:hover {
+  background: rgb(71, 71, 71);
+  color: rgb(219, 178, 102);
+}
+
+.select {
+  margin-right: 20px;
+  height: 30px;
+  font-size: 20px;
+  text-align: center;
+  border-style: none;
 }
