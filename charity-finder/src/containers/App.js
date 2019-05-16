@@ -13,22 +13,25 @@ class App extends React.Component {
     this.state = initialState;
   }
 
+  componentDidMount() {
+    fetch(
+      "https://api.globalgiving.org/api/public/orgservice/all/organizations?api_key=c4f5506d-85e9-4419-978c-d47772dd4c21",
+      {
+        method: "get",
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json"
+        }
+      }
+    )
+      .then(response => response.json())
+      .then(info => this.setState({ data: info }))
+      .catch(error => console.log(error));
+  }
+
   onSearchSubmit = () => {
-    // fetch(
-    //   "https://api.globalgiving.org/api/public/projectservice/all/projects?api_key=c4f5506d-85e9-4419-978c-d47772dd4c21",
-    //   {
-    //     method: "get",
-    //     headers: {
-    //       "Content-type": "application/json",
-    //       Accept: "application/json"
-    //     },
-    //     cache: "no-cache"
-    //   }
-    // )
-    //   .then(response => response.json())
-    //   .then(data => console.log(data))
-    //   .catch(error => console.log(error));
-  };
+    console.log(this.state.data);
+  }
 
   onSearchChange = event => {
     this.setState({ searchText: event.target.value });
