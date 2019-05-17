@@ -41,6 +41,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <h1>WORK IN PROGRESS</h1>
         <Header />
         <Splash
           onSearchChange={this.onSearchChange}
