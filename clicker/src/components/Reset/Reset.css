@@ -1,0 +1,22 @@
+.reset {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8.45%;
+  height: 100px;
+  position: absolute;
+  top: 63.2%;
+  left: 49.99%;
+  transform: translate(-50%, -50%);
+  font-size: 100px;
+  background: yellow;
+  border-radius: 0px 0px 0px 0px;
+  cursor: pointer;
+}
+
+.ex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 17.5%;
+}

@@ -1,0 +1,32 @@
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25.13%;
+  height: 50px;
+  position: absolute;
+  top: 19.7%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgb(63, 63, 63);
+  color: white;
+  border-radius: 10px 10px 0px 0px;
+  font-size: 25px;
+}
+
+.count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 25%;
+  height: 35%;
+  font-size: 150px;
+  border: 1px solid rgb(63, 63, 63);
+  border-bottom: none;
+  border-top: none;
+  background: rgb(209, 209, 209);
+}

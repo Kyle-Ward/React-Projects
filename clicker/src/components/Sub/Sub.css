@@ -1,0 +1,22 @@
+.sub {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8.33%;
+  height: 100px;
+  position: absolute;
+  top: 63.2%;
+  left: 41.6%;
+  transform: translate(-50%, -50%);
+  font-size: 125px;
+  background: red;
+  border-radius: 0px 0px 0px 5px;
+  cursor: pointer;
+}
+
+.minus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 17.5%;
+}
