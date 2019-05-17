@@ -1,7 +1,7 @@
 import React from "react";
 import "./Count.css";
 
-function Count({ counter }) {
+const Count = ({ counter }) => {
   return (
     <div>
       <div className="title">React Click Counter</div>

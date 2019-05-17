@@ -4,7 +4,7 @@ import Add from "../components/Add/Add";
 import Sub from "../components/Sub/Sub";
 import Reset from "../components/Reset/Reset";
 
-function App() {
+const App = () => {
   const [count, setCount] = useState(0);
 
   const onAdd = () => {
