@@ -6,6 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: rgb(71, 71, 71);
+  background: url('./field.jpg') no-repeat fixed center;
 }
 
 code {
