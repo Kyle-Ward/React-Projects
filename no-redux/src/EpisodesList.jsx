@@ -15,7 +15,12 @@ export default function EpisodesList(props) {
           <div>
             Season: {episode.season} Number: {episode.number}
           </div>
-          <button type="button" onClick={() => toggleFavAction(episode, state.state, state.dispatch)}>
+          <button
+            type="button"
+            onClick={() =>
+              toggleFavAction(episode, state.state, state.dispatch)
+            }
+          >
             {favorites.find(fav => fav.id === episode.id) ? "Unfav" : "Fav"}
           </button>
         </section>
