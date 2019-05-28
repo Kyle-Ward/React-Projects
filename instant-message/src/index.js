@@ -11,7 +11,9 @@ import fbInfo from "./fbInfo";
 const firebase = require("firebase");
 require("firebase/firestore");
 
-firebase.initializeApp({ fbInfo });
+console.log(fbInfo);
+
+firebase.initializeApp(fbInfo);
 
 const routing = (
   <Router>
