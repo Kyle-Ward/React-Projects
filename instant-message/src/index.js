@@ -6,20 +6,22 @@ import { Route, BrowserRouter as Router } from "react-router-dom";
 import LoginComponent from "./login/login";
 import SignupComponent from "./signup/signup";
 import DashboardComponent from "./dashboard/dashboard";
-import routing from "./routing";
+import fbInfo from "./fbInfo";
 
 const firebase = require("firebase");
 require("firebase/firestore");
 
-firebase.initializeApp({
-  apiKey: "AIzaSyDINcup-3bhTFhCS4ZfI89Fra2YSHDSP9M",
-  authDomain: "instant-message-cb7c9.firebaseapp.com",
-  databaseURL: "https://instant-message-cb7c9.firebaseio.com",
-  projectId: "instant-message-cb7c9",
-  storageBucket: "instant-message-cb7c9.appspot.com",
-  messagingSenderId: "636377994668",
-  appId: "1:636377994668:web:b55cb395a9d6d1b7"
-});
+firebase.initializeApp({ fbInfo });
+
+const routing = (
+  <Router>
+    <div id="routing-container">
+      <Route path="/login" component={LoginComponent} />
+      <Route path="/signup" component={SignupComponent} />
+      <Route path="/dashboard" component={DashboardComponent} />
+    </div>
+  </Router>
+);
 
 ReactDOM.render(routing, document.getElementById("root"));
 
