@@ -6,12 +6,10 @@ import { Route, BrowserRouter as Router } from "react-router-dom";
 import LoginComponent from "./login/Login";
 import SignupComponent from "./signup/Signup";
 import DashboardComponent from "./dashboard/Dashboard";
-import fbInfo from "./fbInfo";
+import fbInfo from "./fbInfo"; //firebase info with api key in .gitignore
 
 const firebase = require("firebase");
 require("firebase/firestore");
-
-console.log(fbInfo);
 
 firebase.initializeApp(fbInfo);
 
