@@ -1,5 +1,7 @@
 import React from "react";
 import ChatListComponent from "../chatlist/ChatList";
+import { Button, withStyles } from "@material-ui/core";
+import styles from "./styles";
 
 const firebase = require("firebase");
 
@@ -42,7 +44,11 @@ class DashboardComponent extends React.Component {
     });
   };
 
+  signOut = () => firebase.auth().signOut();
+
   render() {
+    const { classes } = this.props;
+
     return (
       <div>
         <ChatListComponent
@@ -53,9 +59,12 @@ class DashboardComponent extends React.Component {
           userEmail={this.state.email}
           selectedChatIndex={this.state.selectedChat}
         />
+        <Button className={classes.signOutBtn} onClick={this.signOut}>
+          Sign Out
+        </Button>
       </div>
     );
   }
 }
 
-export default DashboardComponent;
+export default withStyles(styles)(DashboardComponent);
