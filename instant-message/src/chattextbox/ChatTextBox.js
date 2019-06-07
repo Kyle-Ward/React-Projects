@@ -18,9 +18,7 @@ class ChatTextBoxComponent extends React.Component {
       : this.setState({ chatText: e.target.value });
   };
 
-  userClickedInput = () => {
-    console.log("Clicked input");
-  };
+  userClickedInput = () => this.props.messageReadFn();
 
   messageValid = txt => txt && txt.replace(/\s/g, "").length;
 
