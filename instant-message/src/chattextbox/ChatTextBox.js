@@ -5,29 +5,12 @@ import styles from "./styles";
 import { withStyles } from "@material-ui/core/styles";
 
 class ChatTextBoxComponent extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       chatText: ""
     };
   }
-
-  userTyping = e => {
-    e.keyCode === 13
-      ? this.submitMessage()
-      : this.setState({ chatText: e.target.value });
-  };
-
-  userClickedInput = () => this.props.messageReadFn();
-
-  messageValid = txt => txt && txt.replace(/\s/g, "").length;
-
-  submitMessage = () => {
-    if (this.messageValid(this.state.chatText)) {
-      this.props.submitMessageFn(this.state.chatText);
-      document.getElementById("chattextbox").value = "";
-    }
-  };
 
   render() {
     const { classes } = this.props;
@@ -45,6 +28,22 @@ class ChatTextBoxComponent extends React.Component {
       </div>
     );
   }
+
+  userTyping = e =>
+    e.keyCode === 13
+      ? this.submitMessage()
+      : this.setState({ chatText: e.target.value });
+
+  messageValid = txt => txt && txt.replace(/\s/g, "").length;
+
+  userClickedInput = () => this.props.userClickedInputFn();
+
+  submitMessage = () => {
+    if (this.messageValid(this.state.chatText)) {
+      this.props.submitMessageFn(this.state.chatText);
+      document.getElementById("chattextbox").value = "";
+    }
+  };
 }
 
 export default withStyles(styles)(ChatTextBoxComponent);
