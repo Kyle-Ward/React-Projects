@@ -1,49 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Send from "@material-ui/icons/Send";
 import styles from "./styles";
 import { withStyles } from "@material-ui/core/styles";
 
-class ChatTextBoxComponent extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      chatText: ""
-    };
-  }
+const ChatTextBoxComponent = ({
+  classes,
+  userClickedInputFn,
+  submitMessageFn
+}) => {
+  const [chatText, setChatText] = useState("");
 
-  render() {
-    const { classes } = this.props;
+  const messageValid = txt => txt && txt.replace(/\s/g, "").length;
 
-    return (
-      <div className={classes.chatTextBoxContainer}>
-        <TextField
-          placeholder="Type your message..."
-          onKeyUp={e => this.userTyping(e)}
-          id="chattextbox"
-          className={classes.chatTextBox}
-          onFocus={this.userClickedInput}
-        />
-        <Send onClick={this.submitMessage} className={classes.sendBtn} />
-      </div>
-    );
-  }
-
-  userTyping = e =>
-    e.keyCode === 13
-      ? this.submitMessage()
-      : this.setState({ chatText: e.target.value });
-
-  messageValid = txt => txt && txt.replace(/\s/g, "").length;
-
-  userClickedInput = () => this.props.userClickedInputFn();
-
-  submitMessage = () => {
-    if (this.messageValid(this.state.chatText)) {
-      this.props.submitMessageFn(this.state.chatText);
+  const submitMessage = () => {
+    if (messageValid(chatText)) {
+      submitMessageFn(chatText);
       document.getElementById("chattextbox").value = "";
     }
   };
-}
+
+  const userTyping = e =>
+    e.keyCode === 13 ? submitMessage() : setChatText(e.target.value);
+
+  return (
+    <div className={classes.chatTextBoxContainer}>
+      <TextField
+        placeholder="Type your message..."
+        onKeyUp={e => userTyping(e)}
+        id="chattextbox"
+        className={classes.chatTextBox}
+        onFocus={userClickedInputFn}
+      />
+      <Send onClick={submitMessage} className={classes.sendBtn} />
+    </div>
+  );
+};
 
 export default withStyles(styles)(ChatTextBoxComponent);
