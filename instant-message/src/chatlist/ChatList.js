@@ -16,7 +16,6 @@ const ChatListComponent = ({
   classes,
   userEmail,
   chats,
-  history,
   selectChatFn,
   selectedChatIndex,
   newChatBtnFn
