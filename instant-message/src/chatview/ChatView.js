@@ -2,9 +2,7 @@ import React, { useEffect } from "react";
 import styles from "./styles";
 import { withStyles } from "@material-ui/core/styles";
 
-const ChatViewComponent = props => {
-  const { classes, chat, user } = props;
-
+const ChatViewComponent = ({ classes, chat, user }) => {
   useEffect(() => {
     const container = document.getElementById("chatview-container");
     if (container) container.scrollTo(0, container.scrollHeight);

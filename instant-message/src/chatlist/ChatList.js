@@ -12,13 +12,19 @@ import Button from "@material-ui/core/Button";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import NotificationImportant from "@material-ui/icons/NotificationImportant";
 
-const ChatListComponent = props => {
-  const { classes } = props;
-
+const ChatListComponent = ({
+  classes,
+  userEmail,
+  chats,
+  history,
+  selectChatFn,
+  selectedChatIndex,
+  newChatBtnFn
+}) => {
   const userIsSender = chat =>
-    chat.messages[chat.messages.length - 1].sender === props.userEmail;
+    chat.messages[chat.messages.length - 1].sender === userEmail;
 
-  if (props.chats.length > 0) {
+  if (chats.length > 0) {
     return (
       <main className={classes.root}>
         <Button
@@ -26,32 +32,32 @@ const ChatListComponent = props => {
           fullWidth
           color="primary"
           className={classes.newChatBtn}
-          onClick={props.newChatBtnFn}
+          onClick={newChatBtnFn}
         >
           New Message
         </Button>
         <List>
-          {props.chats.map((_chat, _index) => {
+          {chats.map((_chat, _index) => {
             return (
               <div key={_index}>
                 <ListItem
-                  onClick={() => props.selectChatFn(_index)}
+                  onClick={() => selectChatFn(_index)}
                   className={classes.listItem}
-                  selected={props.selectedChatIndex === _index}
+                  selected={selectedChatIndex === _index}
                   alignItems="flex-start"
                 >
                   <ListItemAvatar>
                     <Avatar alt="Remy Sharp">
                       {
                         _chat.users
-                          .filter(_user => _user !== props.userEmail)[0]
+                          .filter(_user => _user !== userEmail)[0]
                           .split("")[0]
                       }
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText
                     primary={
-                      _chat.users.filter(_user => _user !== props.userEmail)[0]
+                      _chat.users.filter(_user => _user !== userEmail)[0]
                     }
                     secondary={
                       <React.Fragment>
@@ -85,7 +91,7 @@ const ChatListComponent = props => {
           variant="contained"
           fullWidth
           color="primary"
-          onClick={props.newChatBtnFn}
+          onClick={newChatBtnFn}
           className={classes.newChatBtn}
         >
           New Message
