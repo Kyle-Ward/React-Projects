@@ -16,14 +16,6 @@ const LoginComponent = ({ classes, history }) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [loginError, setLoginError] = useState("");
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     email: null,
-  //     password: null,
-  //     loginError: ""
-  //   };
-  // }
 
   const userTyping = (type, e) => {
     switch (type) {
@@ -40,7 +32,6 @@ const LoginComponent = ({ classes, history }) => {
 
   const submitLogin = e => {
     e.preventDefault();
-
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)

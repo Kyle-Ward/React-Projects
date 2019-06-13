@@ -19,49 +19,6 @@ class DashboardComponent extends React.Component {
     };
   }
 
-  render() {
-    const { classes } = this.props;
-
-    if (this.state.email) {
-      return (
-        <div className="dashboard-container" id="dashboard-container">
-          <ChatListComponent
-            history={this.props.history}
-            userEmail={this.state.email}
-            selectChatFn={this.selectChat}
-            chats={this.state.chats}
-            selectedChatIndex={this.state.selectedChat}
-            newChatBtnFn={this.newChatBtnClicked}
-          />
-          {this.state.newChatFormVisible ? null : (
-            <ChatViewComponent
-              user={this.state.email}
-              chat={this.state.chats[this.state.selectedChat]}
-            />
-          )}
-          {this.state.selectedChat !== null &&
-          !this.state.newChatFormVisible ? (
-            <ChatTextBoxComponent
-              userClickedInputFn={this.messageRead}
-              submitMessageFn={this.submitMessage}
-            />
-          ) : null}
-          {this.state.newChatFormVisible ? (
-            <NewChatComponent
-              goToChatFn={this.goToChat}
-              newChatSubmitFn={this.newChatSubmit}
-            />
-          ) : null}
-          <Button onClick={this.signOut} className={classes.signOutBtn}>
-            Sign Out
-          </Button>
-        </div>
-      );
-    } else {
-      return <div>LOADING...</div>;
-    }
-  }
-
   signOut = () => firebase.auth().signOut();
 
   submitMessage = msg => {
@@ -134,6 +91,7 @@ class DashboardComponent extends React.Component {
         _usr => _usr !== this.state.email
       )[0]
     );
+    console.log(docKey);
     if (this.clickedMessageWhereNotSender(chatIndex)) {
       firebase
         .firestore()
@@ -169,6 +127,49 @@ class DashboardComponent extends React.Component {
       }
     });
   };
+
+  render() {
+    const { classes } = this.props;
+
+    if (this.state.email) {
+      return (
+        <div className="dashboard-container" id="dashboard-container">
+          <ChatListComponent
+            history={this.props.history}
+            userEmail={this.state.email}
+            selectChatFn={this.selectChat}
+            chats={this.state.chats}
+            selectedChatIndex={this.state.selectedChat}
+            newChatBtnFn={this.newChatBtnClicked}
+          />
+          {this.state.newChatFormVisible ? null : (
+            <ChatViewComponent
+              user={this.state.email}
+              chat={this.state.chats[this.state.selectedChat]}
+            />
+          )}
+          {this.state.selectedChat !== null &&
+          !this.state.newChatFormVisible ? (
+            <ChatTextBoxComponent
+              userClickedInputFn={this.messageRead}
+              submitMessageFn={this.submitMessage}
+            />
+          ) : null}
+          {this.state.newChatFormVisible ? (
+            <NewChatComponent
+              goToChatFn={this.goToChat}
+              newChatSubmitFn={this.newChatSubmit}
+            />
+          ) : null}
+          <Button onClick={this.signOut} className={classes.signOutBtn}>
+            Sign Out
+          </Button>
+        </div>
+      );
+    } else {
+      return <div>LOADING...</div>;
+    }
+  }
 }
 
 export default withStyles(styles)(DashboardComponent);
