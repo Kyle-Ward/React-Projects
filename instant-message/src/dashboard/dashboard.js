@@ -91,7 +91,6 @@ class DashboardComponent extends React.Component {
         _usr => _usr !== this.state.email
       )[0]
     );
-    console.log(docKey);
     if (this.clickedMessageWhereNotSender(chatIndex)) {
       firebase
         .firestore()
@@ -103,9 +102,9 @@ class DashboardComponent extends React.Component {
     }
   };
 
-  clickedMessageWhereNotSender = chatIndex =>
-    this.state.chats[chatIndex].messages[
-      this.state.chats[chatIndex].messages.length - 1
+  clickedMessageWhereNotSender = chatIndexArg =>
+    this.state.chats[chatIndexArg].messages[
+      this.state.chats[chatIndexArg].messages.length - 1
     ].sender !== this.state.email;
 
   componentWillMount = () => {
