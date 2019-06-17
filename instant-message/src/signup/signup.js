@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -11,104 +11,23 @@ import Button from "@material-ui/core/Button";
 import styles from "./styles";
 const firebase = require("firebase");
 
-class SignupComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: null,
-      password: null,
-      passwordConfirmation: null,
-      signupError: ""
-    };
-  }
+const SignupComponent = ({ classes, history }) => {
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [passwordConfirmation, setPasswordConfirmation] = useState(null);
+  const [signupError, setSignupError] = useState("");
 
-  render() {
-    const { classes } = this.props;
+  const formIsValid = () => password === passwordConfirmation;
 
-    return (
-      <main className={classes.main}>
-        <CssBaseline />
-        <Paper className={classes.paper}>
-          <Typography component="h1" variant="h5">
-            Sign Up!
-          </Typography>
-          <form onSubmit={e => this.submitSignup(e)} className={classes.form}>
-            <FormControl required fullWidth margin="normal">
-              <InputLabel htmlFor="signup-email-input">
-                Enter Your Email
-              </InputLabel>
-              <Input
-                autoComplete="email"
-                onChange={e => this.userTyping("email", e)}
-                autoFocus
-                id="signup-email-input"
-              />
-            </FormControl>
-            <FormControl required fullWidth margin="normal">
-              <InputLabel htmlFor="signup-password-input">
-                Create A Password
-              </InputLabel>
-              <Input
-                type="password"
-                onChange={e => this.userTyping("password", e)}
-                id="signup-password-input"
-              />
-            </FormControl>
-            <FormControl required fullWidth margin="normal">
-              <InputLabel htmlFor="signup-password-confirmation-input">
-                Confirm Your Password
-              </InputLabel>
-              <Input
-                type="password"
-                onChange={e => this.userTyping("passwordConfirmation", e)}
-                id="signup-password-confirmation-input"
-              />
-            </FormControl>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Submit
-            </Button>
-          </form>
-          {this.state.signupError ? (
-            <Typography
-              className={classes.errorText}
-              component="h5"
-              variant="h6"
-            >
-              {this.state.signupError}
-            </Typography>
-          ) : null}
-          <Typography
-            component="h5"
-            variant="h6"
-            className={classes.hasAccountHeader}
-          >
-            Already Have An Account?
-          </Typography>
-          <Link className={classes.logInLink} to="/login">
-            Log In!
-          </Link>
-        </Paper>
-      </main>
-    );
-  }
-
-  formIsValid = () => this.state.password === this.state.passwordConfirmation;
-
-  submitSignup = e => {
+  const submitSignup = e => {
     e.preventDefault();
-    if (!this.formIsValid()) {
-      this.setState({ signupError: "Passwords do not match!" });
+    if (!formIsValid()) {
+      setSignupError("Passwords do not match!");
       return;
     }
     firebase
       .auth()
-      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .createUserWithEmailAndPassword(email, password)
       .then(
         authRes => {
           const userObj = {
@@ -117,40 +36,108 @@ class SignupComponent extends React.Component {
           firebase
             .firestore()
             .collection("users")
-            .doc(this.state.email)
+            .doc(email)
             .set(userObj)
             .then(
               () => {
-                this.props.history.push("/dashboard");
+                history.push("/dashboard");
               },
               dbError => {
                 console.log(dbError);
-                this.setState({ signupError: "Failed to add user" });
+                setSignupError("Failed to add user");
               }
             );
         },
         authError => {
           console.log(authError);
-          this.setState({ signupError: "Failed to add user" });
+          setSignupError("Failed to add user");
         }
       );
   };
 
-  userTyping = (type, e) => {
+  const userTyping = (type, e) => {
     switch (type) {
       case "email":
-        this.setState({ email: e.target.value });
+        setEmail(e.target.value);
         break;
       case "password":
-        this.setState({ password: e.target.value });
+        setPassword(e.target.value);
         break;
       case "passwordConfirmation":
-        this.setState({ passwordConfirmation: e.target.value });
+        setPasswordConfirmation(e.target.value);
         break;
       default:
         break;
     }
   };
-}
+
+  return (
+    <main className={classes.main}>
+      <CssBaseline />
+      <Paper className={classes.paper}>
+        <Typography component="h1" variant="h5">
+          Sign Up!
+        </Typography>
+        <form onSubmit={e => submitSignup(e)} className={classes.form}>
+          <FormControl required fullWidth margin="normal">
+            <InputLabel htmlFor="signup-email-input">
+              Enter Your Email
+            </InputLabel>
+            <Input
+              autoComplete="email"
+              onChange={e => userTyping("email", e)}
+              autoFocus
+              id="signup-email-input"
+            />
+          </FormControl>
+          <FormControl required fullWidth margin="normal">
+            <InputLabel htmlFor="signup-password-input">
+              Create A Password
+            </InputLabel>
+            <Input
+              type="password"
+              onChange={e => userTyping("password", e)}
+              id="signup-password-input"
+            />
+          </FormControl>
+          <FormControl required fullWidth margin="normal">
+            <InputLabel htmlFor="signup-password-confirmation-input">
+              Confirm Your Password
+            </InputLabel>
+            <Input
+              type="password"
+              onChange={e => userTyping("passwordConfirmation", e)}
+              id="signup-password-confirmation-input"
+            />
+          </FormControl>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Submit
+          </Button>
+        </form>
+        {signupError ? (
+          <Typography className={classes.errorText} component="h5" variant="h6">
+            {signupError}
+          </Typography>
+        ) : null}
+        <Typography
+          component="h5"
+          variant="h6"
+          className={classes.hasAccountHeader}
+        >
+          Already Have An Account?
+        </Typography>
+        <Link className={classes.logInLink} to="/login">
+          Log In!
+        </Link>
+      </Paper>
+    </main>
+  );
+};
 
 export default withStyles(styles)(SignupComponent);
